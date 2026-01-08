@@ -92,3 +92,25 @@ def auto_send():
 threading.Thread(target=auto_send, daemon=True).start()
 
 bot.infinity_polling()
+def load_json(path):
+    if not os.path.exists(path):
+        with open(path, "w") as f:
+            json.dump({}, f)
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+def save_json(path, data):
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+@bot.message_handler(commands=["favori"])
+def show_favorites(msg):
+    favs = load_json("data/favorites.json")
+    user_id = str(msg.from_user.id)
+
+    if user_id not in favs or not favs[user_id]:
+        bot.send_message(msg.chat.id, "⭐ Henüz favori ayetin yok.")
+        return
+
+    for a in favs[user_id][-5:]:
+        bot.send_message(msg.chat.id, format_ayah(a))

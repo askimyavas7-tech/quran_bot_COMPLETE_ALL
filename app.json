@@ -1,0 +1,23 @@
+{
+  "name": "Advanced Quran Telegram Bot",
+  "description": "Sesli ve yazılı Kur'an-ı Kerim Telegram botu",
+  "keywords": ["telegram", "quran", "islam", "audio"],
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Telegram Bot Token",
+      "required": true
+    },
+    "ADMIN_ID": {
+      "description": "Bot sahibinin Telegram ID'si",
+      "required": true
+    },
+    "CHAT_ID": {
+      "description": "Otomatik ayet atılacak kanal/grup ID",
+      "required": false
+    }
+  },
+  "buildpacks": [
+    { "url": "heroku/python" }
+  ],
+  "stack": "heroku-24"
+}
